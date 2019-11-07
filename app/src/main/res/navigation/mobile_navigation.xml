@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_recipes">
+
+    <fragment
+        android:id="@+id/nav_recipes"
+        android:name="com.example.cookingnew.ui.my_recipes.MyRecipesFragment"
+        android:label="Рецепти"
+        tools:layout="@layout/fragment_my_recipes" />
+
+    <fragment
+        android:id="@+id/nav_favorites"
+        android:name="com.example.cookingnew.ui.favorite.FavoriteFragment"
+        android:label="Улюблені"
+        tools:layout="@layout/fragment_favorites" />
+
+    <fragment
+        android:id="@+id/nav_slideshow"
+        android:name="com.example.cookingnew.ui.what_to_cook.WhatToCookFragment"
+        android:label="Випадковий рецепт"
+        tools:layout="@layout/fragment_what_to_cooking" />
+
+    <fragment
+        android:id="@+id/nav_share"
+        android:name="com.example.cookingnew.ui.share.ShareFragment"
+        android:label="Поділитись"
+        tools:layout="@layout/fragment_share" />
+
+    <fragment
+        android:id="@+id/nav_send"
+        android:name="com.example.cookingnew.ui.send.SendFragment"
+        android:label="Відправити"
+        tools:layout="@layout/fragment_send" />
+</navigation>
