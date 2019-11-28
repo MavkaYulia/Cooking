@@ -3,23 +3,16 @@ package com.example.cookingnew.ui.my_recipes
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.cookingnew.R
-import com.example.cookingnew.utils.Constants
 import kotlinx.android.synthetic.main.fragment_my_recipes.*
-import org.jsoup.Jsoup
-import java.io.IOException
 
 class MyRecipesFragment : Fragment() {
 
@@ -63,19 +56,7 @@ class MyRecipesFragment : Fragment() {
        //     getData()}
 
     }
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (resultCode == Activity.RESULT_OK) {
-            val recipes = data?.getParcelableExtra<recipe>(Constants.INTENT_OBJECT)!!
-            when (requestCode) {
-                Constants.INTENT_CREATE_TODO -> {
-                    myRecipesViewModel.saveRecipes(recipes)
-                }
-                Constants.INTENT_UPDATE_TODO -> {
-                    myRecipesViewModel.updateRecipes(recipes)
-                }
-            }
-        }
-    }
+
     fun filter(text: String) {
         adapter.setFilterText(text)
     }
