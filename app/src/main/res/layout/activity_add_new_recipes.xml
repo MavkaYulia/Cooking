@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#CDDDDD"
+    tools:context=".AddNewRecipes.AddNewRecipes">
+
+    <ImageView
+        android:id="@+id/FotoNewRec"
+        android:layout_width="375dp"
+        android:layout_height="219dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="40dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/food1" />
+
+    <EditText
+        android:id="@+id/editNameRec"
+        android:layout_width="376dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="68dp"
+        android:ems="10"
+        android:hint="Ім'я"
+        android:inputType="textPersonName"
+        android:orientation="horizontal"
+        android:shadowColor="@color/colorPrimary"
+        android:textColorHighlight="@color/colorPrimary"
+        android:textColorLink="@color/colorPrimary"
+        android:textCursorDrawable="@color/colorPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.428"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/FotoNewRec" />
+
+    <Spinner
+        android:id="@+id/spinnerTypeRec"
+        android:layout_width="272dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="40dp"
+        app:layout_constraintEnd_toEndOf="@+id/FotoNewRec"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/FotoNewRec"
+        app:layout_constraintTop_toBottomOf="@+id/FotoNewRec" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Створи свій рецепт "
+        android:textColor="#FFFFFF"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="@+id/FotoNewRec"
+        app:layout_constraintStart_toStartOf="@+id/FotoNewRec"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="88dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="44dp"
+        android:text="Тип страви :"
+        app:layout_constraintEnd_toEndOf="@+id/spinnerTypeRec"
+        app:layout_constraintHorizontal_bias="0.052"
+        app:layout_constraintStart_toStartOf="@+id/FotoNewRec"
+        app:layout_constraintTop_toBottomOf="@+id/FotoNewRec" />
+
+    <Button
+        android:id="@+id/Foto"
+        android:layout_width="183dp"
+        android:layout_height="35dp"
+        android:text="Завантажити фото "
+        android:textSize="10sp"
+        app:layout_constraintBottom_toTopOf="@+id/spinnerTypeRec"
+        app:layout_constraintEnd_toEndOf="@+id/FotoNewRec"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/FotoNewRec"
+        app:layout_constraintTop_toBottomOf="@+id/FotoNewRec"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <EditText
+        android:id="@+id/editTimeRec"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Час приготування"
+        android:inputType="time"
+        app:layout_constraintEnd_toEndOf="@+id/editNameRec"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/editNameRec"
+        app:layout_constraintTop_toBottomOf="@+id/editNameRec" />
+
+    <EditText
+        android:id="@+id/editDescribeRec"
+        android:layout_width="376dp"
+        android:layout_height="0dp"
+        android:ems="10"
+        android:hint="Опис"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="@+id/editTimeRec"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/editTimeRec"
+        app:layout_constraintTop_toBottomOf="@+id/editTimeRec" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="376dp"
+        android:layout_height="0dp"
+        app:layout_constraintEnd_toEndOf="@+id/editDescribeRec"
+        app:layout_constraintHorizontal_bias="0.555"
+        app:layout_constraintStart_toStartOf="@+id/editDescribeRec"
+        app:layout_constraintTop_toBottomOf="@+id/editDescribeRec">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editInRec"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Інгрідієнти"
+            android:textColorHighlight="#FFFFFF"
+            android:textColorHint="#FFFFFF" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/buttonSave"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Зберегти рецепт"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,11 +1,8 @@
 package com.example.cookingnew.ui.my_recipes
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Filter
-import android.widget.Filterable
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
@@ -17,7 +14,7 @@ import com.example.cookingnew.splash.CircleTransform
 class AdapterRecyclerRecipes  : RecyclerView.Adapter<AdapterRecyclerRecipes.ViewHolder>() {
 
 
-    private var recipes: List<recipe> = listOf()
+    private var recipesList: List<recipe> = arrayListOf()
     private var filterText: String = ""
     private var filteredList: List<recipe> = listOf()
 
@@ -29,16 +26,16 @@ class AdapterRecyclerRecipes  : RecyclerView.Adapter<AdapterRecyclerRecipes.View
 
     override fun getItemCount(): Int = filteredList.size
 
-
+//-------------------------->
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(filteredList[position])
     }
 
 
-    fun setRecipes(list: MutableList<recipe>) {
-        recipes = list
-        filterAndNotify()
-    }
+   // fun setRecipes(list: MutableList<recipe>) {
+   //     recipes = list
+   //     filterAndNotify()
+  //  }
 
     fun setFilterText(text: String = "") {
         filterText = text
@@ -46,26 +43,37 @@ class AdapterRecyclerRecipes  : RecyclerView.Adapter<AdapterRecyclerRecipes.View
     }
 
     private fun filterAndNotify() {
-        filteredList = recipes.filter {
+        filteredList = recipesList.filter {
             it.getName().contains(filterText, true)
         }
         notifyDataSetChanged()
     }
 
+    fun setAllRecipesItems ( recipeItems : List<recipe>){
+        this.recipesList = recipeItems
+        this.filteredList = recipeItems
+        notifyDataSetChanged()
+    }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
 
         val textNameRec = itemView.findViewById<TextView>(R.id.textName)
-        val textWocb = itemView.findViewById<TextView>(R.id.textWocb)
-        val textSite = itemView.findViewById<TextView>(R.id.textSite)
         val myImageView = itemView.findViewById<ImageView>(R.id.imageRec)
+        val textType = itemView.findViewById<TextView>(R.id.textType)
+        val textDescribe = itemView.findViewById<TextView>(R.id.textDescribe)
+        val textTime = itemView.findViewById<TextView>(R.id.textTime)
+        val textIngredients = itemView.findViewById<TextView>(R.id.textIngredients)
+
+
 
         fun bind(Recipes1: recipe) {
 
             textNameRec.text = Recipes1.nameR
-            textWocb.text = Recipes1.wocb
-            textSite.text = Recipes1.site
+            textType.text = Recipes1.type
+            textDescribe.text = Recipes1.describe
+            textTime.text = Recipes1.timeCooking.toString()
+            textIngredients.text = Recipes1.ingredients
 
             Picasso.get()
                 .load(Recipes1.url)
@@ -74,6 +82,8 @@ class AdapterRecyclerRecipes  : RecyclerView.Adapter<AdapterRecyclerRecipes.View
                 .transform(CircleTransform())
                 .error(R.drawable.no_image)
                 .into(myImageView)
+
+            //--------------------------->
         }
 
     }

@@ -32,6 +32,7 @@
                 android:id="@+id/textName"
                 android:layout_width="268dp"
                 android:layout_height="0dp"
+                android:text="Name"
                 android:textColor="@color/text"
                 android:textSize="18sp"
                 android:textStyle="bold"
@@ -41,29 +42,29 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/textWocb"
-                android:layout_width="258dp"
-                android:layout_height="73dp"
-                android:textColor="@color/text"
+                android:id="@+id/textIngredients"
+                android:layout_width="233dp"
+                android:layout_height="72dp"
+                android:text="Ingredients"
+                android:textColor="@android:color/secondary_text_light"
                 android:textStyle="italic"
-                app:layout_constraintBottom_toBottomOf="@id/textView2"
-                app:layout_constraintEnd_toEndOf="@+id/textName"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toStartOf="@+id/textName"
-                app:layout_constraintTop_toBottomOf="@+id/textName"
-                app:layout_constraintVertical_bias="0.165" />
+                app:layout_constraintStart_toEndOf="@+id/imageRec"
+                app:layout_constraintTop_toBottomOf="@+id/textDescribe" />
 
             <TextView
-                android:id="@+id/textSite"
+                android:id="@+id/textTime"
                 android:layout_width="115dp"
                 android:layout_height="0dp"
-                android:textColor="@color/text"
+                android:text="Time"
+                android:textColor="@android:color/secondary_text_light"
                 android:textSize="14sp"
                 android:textStyle="italic"
-                app:layout_constraintEnd_toEndOf="@+id/textWocb"
+                app:layout_constraintEnd_toEndOf="@+id/textIngredients"
                 app:layout_constraintHorizontal_bias="0.982"
-                app:layout_constraintStart_toStartOf="@+id/textWocb"
-                app:layout_constraintTop_toBottomOf="@+id/textWocb" />
+                app:layout_constraintStart_toStartOf="@+id/textIngredients"
+                app:layout_constraintTop_toBottomOf="@+id/textIngredients" />
 
             <ImageView
                 android:id="@+id/imageView2"
@@ -75,7 +76,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/textView3"
-                app:layout_constraintTop_toBottomOf="@+id/textSite"
+                app:layout_constraintTop_toBottomOf="@+id/textTime"
                 app:layout_constraintVertical_bias="0.0" />
 
             <TextView
@@ -97,11 +98,34 @@
                 android:textColor="#928387"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toTopOf="@+id/textView2"
-                app:layout_constraintEnd_toEndOf="@+id/textSite"
+                app:layout_constraintEnd_toEndOf="@+id/textTime"
                 app:layout_constraintHorizontal_bias="0.876"
                 app:layout_constraintStart_toStartOf="@+id/imageRec"
-                app:layout_constraintTop_toBottomOf="@+id/textSite"
+                app:layout_constraintTop_toBottomOf="@+id/textTime"
                 app:layout_constraintVertical_bias="0.47" />
+
+            <TextView
+                android:id="@+id/textDescribe"
+                android:layout_width="233dp"
+                android:layout_height="43dp"
+                android:text="Describe"
+                android:textColor="@android:color/secondary_text_light"
+                android:textStyle="italic"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/imageRec"
+                app:layout_constraintTop_toBottomOf="@+id/textName" />
+
+            <TextView
+                android:id="@+id/textType"
+                android:layout_width="116dp"
+                android:layout_height="wrap_content"
+                android:text="Type"
+                android:textColor="@android:color/secondary_text_light"
+                android:textStyle="italic"
+                app:layout_constraintEnd_toStartOf="@+id/textTime"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/textIngredients"
+                app:layout_constraintTop_toBottomOf="@+id/textIngredients" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>

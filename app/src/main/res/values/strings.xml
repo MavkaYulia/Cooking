@@ -13,4 +13,16 @@
     <string name="menu_tools">Tools</string>
     <string name="menu_share">Share</string>
     <string name="menu_send">Send</string>
+    <string name="pleaseEnterName">Введіть Ім\'я</string>
+    <string name="pleaseEnterType">Оберіть тип страви</string>
+    <string name="pleaseEnterIngr">Введіть кілька інгрідієнтів</string>
+
+    <string-array name="Type">
+    <item>"Закуски"</item>
+    <item>"Супи"</item>
+    <item>"Основні страви"</item>
+    <item>"Десерт"</item>
+
+</string-array>
+
 </resources>

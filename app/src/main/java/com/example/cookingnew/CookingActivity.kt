@@ -1,5 +1,6 @@
 package com.example.cookingnew
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import androidx.navigation.findNavController
@@ -10,10 +11,12 @@ import androidx.appcompat.widget.Toolbar
 import android.view.Menu
 import androidx.navigation.ui.*
 import android.view.MenuItem
+import android.view.View
 import android.widget.EditText
 import androidx.appcompat.widget.SearchView
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.cookingnew.AddNewRecipes.AddNewRecipes
 import com.example.cookingnew.ui.my_recipes.MyRecipesFragment
 
 
@@ -102,6 +105,12 @@ class CookingActivity : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host_fragment)
         //return NavigationUI.navigateUp(navController, appBarConfiguration)|| super.onSupportNavigateUp()
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
+
+    }
+
+    fun AddNewPecipesFun(view: View){
+        val NextIntent1 = Intent(this, AddNewRecipes::class.java)
+        startActivity(NextIntent1)
     }
 
 }

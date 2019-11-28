@@ -1,11 +1,14 @@
 package com.example.cookingnew.ui.my_recipes
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -13,6 +16,7 @@ import kotlinx.coroutines.launch
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.cookingnew.R
+import com.example.cookingnew.utils.Constants
 import kotlinx.android.synthetic.main.fragment_my_recipes.*
 import org.jsoup.Jsoup
 import java.io.IOException
@@ -21,11 +25,9 @@ class MyRecipesFragment : Fragment() {
 
     private lateinit var myRecipesViewModel: MyRecipesViewModel
 
-    private val url1 = "https://znaj.ua/recepty"
-    val ListRecipes1: MutableList<recipe> = mutableListOf()
+   // private val url1 = "https://znaj.ua/recepty"
+   // val ListRecipes1: MutableList<recipe> = mutableListOf()
 
-
-    private lateinit var homeViewModel: MyRecipesViewModel
     private lateinit var adapter: AdapterRecyclerRecipes
 
 
@@ -34,41 +36,51 @@ class MyRecipesFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        myRecipesViewModel =
-            ViewModelProviders.of(this).get(MyRecipesViewModel::class.java)
+
         val root = inflater.inflate(R.layout.fragment_my_recipes, container, false)
-     ///   val textView: TextView = root.findViewById(R.id.text_home)
-      ///  myRecipesViewModel.text.observe(this, Observer {
-       //     textView.text = it
-    //    })
-        return root
+      return root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         setHasOptionsMenu(true)
 
-        //RecipesList.layoutManager = LinearLayoutManager(context)
-        //  RecipesList.adapter = AdapterRecyclerRecipes()
+
         adapter = AdapterRecyclerRecipes()
         val llm = LinearLayoutManager(this.context)
         RecipesList.layoutManager = llm
         RecipesList.adapter = adapter
-        //AdapterRecyclerRecipes(this, viewModel.displayRecipes1)
+        myRecipesViewModel =
 
-        //adapter//(displayRecipes1 , this)
+            ViewModelProviders.of(this).get(MyRecipesViewModel::class.java)
+        myRecipesViewModel.getRecipesList().observe(this , Observer {
+            adapter.setAllRecipesItems(it)
+        })
 
 
-        GlobalScope.launch {
-            getData()
+
+      //  GlobalScope.launch {
+       //     getData()}
+
+    }
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (resultCode == Activity.RESULT_OK) {
+            val recipes = data?.getParcelableExtra<recipe>(Constants.INTENT_OBJECT)!!
+            when (requestCode) {
+                Constants.INTENT_CREATE_TODO -> {
+                    myRecipesViewModel.saveRecipes(recipes)
+                }
+                Constants.INTENT_UPDATE_TODO -> {
+                    myRecipesViewModel.updateRecipes(recipes)
+                }
+            }
         }
     }
-
     fun filter(text: String) {
         adapter.setFilterText(text)
     }
-
-
+}
+/*
     private fun getData() {
         try {
 
@@ -109,6 +121,6 @@ class MyRecipesFragment : Fragment() {
         } catch (e: IOException) {
             //  e.printStackTrace()
         }
-    }
+    }*/
 
-}
+
