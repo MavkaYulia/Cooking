@@ -31,8 +31,9 @@ class MyRecipesFragment : Fragment(){
         myRecipesViewModel =
 
             ViewModelProviders.of(this).get(MyRecipesViewModel::class.java)
-        myRecipesViewModel.getRecipesList().observe(this , Observer {
-            adapter.setAllRecipesItems(it)
+        myRecipesViewModel.getRecipesList().observe(this , Observer {v1 ->
+            // Update the cached copy of the words in the adapter.
+            v1?.let { adapter.setRecipes(it) }
         })
         val root = inflater.inflate(R.layout.fragment_my_recipes, container, false)
       return root

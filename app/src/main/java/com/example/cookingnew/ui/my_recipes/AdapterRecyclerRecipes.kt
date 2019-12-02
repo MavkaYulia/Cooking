@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import com.example.cookingnew.R
@@ -18,7 +19,7 @@ class AdapterRecyclerRecipes : RecyclerView.Adapter<AdapterRecyclerRecipes.ViewH
     //    fun onViewClicked(Recipes1: recipe )
    // }
 
-    private var recipesList: List<recipe> = arrayListOf()
+    private var recipesList =  emptyList<recipe>()
     private var filterText: String = ""
     private var filteredList: List<recipe> = listOf()
 
@@ -36,10 +37,10 @@ class AdapterRecyclerRecipes : RecyclerView.Adapter<AdapterRecyclerRecipes.ViewH
     }
 
 
-   // fun setRecipes(list: MutableList<recipe>) {
-   //     recipes = list
-   //     filterAndNotify()
-  //  }
+    fun setRecipes(list: List<recipe>) {
+        this.recipesList = list
+        filterAndNotify()
+   }
 
     fun setFilterText(text: String = "") {
         filterText = text
