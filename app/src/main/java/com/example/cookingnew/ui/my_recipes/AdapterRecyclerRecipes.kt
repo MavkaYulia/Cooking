@@ -11,8 +11,12 @@ import com.example.cookingnew.R
 import com.example.cookingnew.splash.CircleTransform
 
 
-class AdapterRecyclerRecipes  : RecyclerView.Adapter<AdapterRecyclerRecipes.ViewHolder>() {
+class AdapterRecyclerRecipes : RecyclerView.Adapter<AdapterRecyclerRecipes.ViewHolder>() {
 
+    //interface RecipesEvents {
+    //    fun onDeleteClicked(Recipes1: recipe )
+    //    fun onViewClicked(Recipes1: recipe )
+   // }
 
     private var recipesList: List<recipe> = arrayListOf()
     private var filterText: String = ""
@@ -67,7 +71,7 @@ class AdapterRecyclerRecipes  : RecyclerView.Adapter<AdapterRecyclerRecipes.View
 
 
 
-        fun bind(Recipes1: recipe) {
+        fun bind(Recipes1: recipe ) {
 
             textNameRec.text = Recipes1.nameR
             textType.text = Recipes1.type
@@ -83,7 +87,6 @@ class AdapterRecyclerRecipes  : RecyclerView.Adapter<AdapterRecyclerRecipes.View
                 .error(R.drawable.no_image)
                 .into(myImageView)
 
-            //--------------------------->
         }
 
     }

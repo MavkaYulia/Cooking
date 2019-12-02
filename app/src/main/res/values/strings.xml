@@ -16,13 +16,14 @@
     <string name="pleaseEnterName">Введіть Ім\'я</string>
     <string name="pleaseEnterType">Оберіть тип страви</string>
     <string name="pleaseEnterIngr">Введіть кілька інгрідієнтів</string>
+    <string name="label_pick_image">Оберіть фото</string>
 
     <string-array name="Type">
-    <item>"Закуски"</item>
-    <item>"Супи"</item>
-    <item>"Основні страви"</item>
-    <item>"Десерт"</item>
+        <item>"Закуски"</item>
+        <item>"Супи"</item>
+        <item>"Основні страви"</item>
+        <item>"Десерт"</item>
 
-</string-array>
+    </string-array>
 
 </resources>

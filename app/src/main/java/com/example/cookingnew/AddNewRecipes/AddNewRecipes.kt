@@ -1,53 +1,77 @@
 package com.example.cookingnew.AddNewRecipes
 
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.text.TextUtils
+import android.view.KeyEvent
+import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.example.cookingnew.R
 import com.example.cookingnew.splash.CircleTransform
 import com.example.cookingnew.ui.my_recipes.recipe
+import com.example.cookingnew.utils.Constants
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_add_new_recipes.*
 
+import android.graphics.Bitmap
+import android.widget.ImageView
+import android.widget.Toast
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import com.example.cookingnew.AddNewRecipes.camera.Picker
+import com.example.cookingnew.AddNewRecipes.camera.Sources
 
 class AddNewRecipes : AppCompatActivity() {
 
-    val EXTRA_ID = "com.example.cookingnew.AddNewRecipes.EXTRA_ID"
-    val EXTRA_NAMER = "com.example.cookingnew.AddNewRecipes.EXTRA_NAMER"
-    val EXTRA_TYPE = "com.example.cookingnew.EXTRA_TYPE"
-    val EXTRA_TIMECOOKING = "com.example.cookingnew.EXTRA_TIMECOOKING"
-    val EXTRA_URL = "com.example.cookingnew.EXTRA_URL"
-    val EXTRA_DESCRIBE = "com.example.cookingnew.EXTRA_DESCRIBE"
-    val EXTRA_INGREDIENTS = "com.example.cookingnew.EXTRA_INGREDIENTS"
+    private lateinit var ivFotoNewRecImage: ImageView
+
 
     var recipes: recipe? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_new_recipes)
-        SpinnerAdapter()
+        ivFotoNewRecImage = findViewById(R.id.FotoNewRec)
 
+
+        val fabCamera = findViewById<FloatingActionButton>(R.id.fab_pick_camera)
+        val fabGallery = findViewById<FloatingActionButton>(R.id.fab_pick_gallery)
+        fabCamera.setOnClickListener { v -> pickImageFromSource(Sources.CAMERA) }
+        fabGallery.setOnClickListener {v ->  pickImageFromSource(Sources.GALLERY) }
+
+            SpinnerAdapter()
+
+        buttonSave.setOnClickListener { v -> saveRecipes() }
         val intent = intent
-        if (intent != null && intent.hasExtra(EXTRA_NAMER)) {
-           // val recipes: recipe = intent.getParcelableExtra(EXTRA_NAMER)
+        if (intent != null && intent.hasExtra(Constants.INTENT_OBJECT)) {
+            val recipes: recipe = intent.getParcelableExtra(Constants.INTENT_OBJECT)
             this.recipes = recipes
-           // LinkFun(recipes)
-            val button = findViewById<Button>(R.id.buttonSave)
-            button.setOnClickListener {
-                val replyIntent = Intent()
-                if (TextUtils.isEmpty(editNameRec.text)) {
-                    setResult(Activity.RESULT_CANCELED, replyIntent)
-                } else {
-                    val word = editNameRec.text.toString()
-                    replyIntent.putExtra(EXTRA_NAMER, word)
-                    setResult(Activity.RESULT_OK, replyIntent)
-                }
-                finish()
-            }
+            LinkFun(recipes)
 
+        }
+    }
+
+    private fun pickImageFromSource(source: Sources) {
+        Picker.with(supportFragmentManager).requestImage(source, getString(R.string.label_pick_image))
+            //else -> Observable.just(uri)
+
+            .subscribe({
+                onImagePicked(it)
+            }, {
+                Toast.makeText(this@AddNewRecipes, java.lang.String.format("Error: %s", it), Toast.LENGTH_LONG).show()
+            })
+    }
+
+    private fun onImagePicked(result: Any) {
+        Toast.makeText(this, java.lang.String.format("Result: %s", result), Toast.LENGTH_LONG).show()
+        if (result is Bitmap) {
+            ivFotoNewRecImage.setImageBitmap(result)
+        } else {
+            Glide.with(this)
+                .load(result)
+                .transition(DrawableTransitionOptions().crossFade())
+                .into(ivFotoNewRecImage)
         }
     }
 
@@ -58,14 +82,14 @@ class AddNewRecipes : AppCompatActivity() {
         editInRec.setText(Recipes.ingredients)
         val textType = findViewById<TextView>(R.id.textType)
         textType.text = Recipes.type
-        val myImageView = findViewById<ImageView>(R.id.FotoNewRec)
+        ivFotoNewRecImage = findViewById(R.id.FotoNewRec)
         Picasso.get()
             .load(Recipes.url)
             //.with(itemView.context)
-            .placeholder(R.drawable.food2)
+            .placeholder(R.drawable.no_image)
             .transform(CircleTransform())
             .error(R.drawable.no_image)
-            .into(myImageView)
+            .into(ivFotoNewRecImage)
     }
 
 
@@ -83,57 +107,28 @@ class AddNewRecipes : AppCompatActivity() {
         }
     }
 
-     fun saveRecipes (Recipe : recipe) {
-
-         val name : String = editNameRec.text.toString()
-         val type : String = spinnerTypeRec.selectedItemId.toString()
-         val describe : String = editDescribeRec.text.toString()
-         val ingredients : String = editInRec.text.toString()
-       //  val url : String = FotoNewRec.text.toString()
-        // val time: Int = editTimeRec.getValue()
-
+     fun saveRecipes () {
+         val name: String = editNameRec.text.toString()
+         val ingredients: String = editInRec.text.toString()
          if (name.trim { it <= ' ' }.isEmpty() || ingredients.trim { it <= ' ' }.isEmpty()) {
-             Toast.makeText(this, "Please name a title and ingredients", Toast.LENGTH_SHORT).show()
+             Toast.makeText(this, "Введіть ім'я та інгрідієнт", Toast.LENGTH_SHORT).show()
              return
+
          }
-
-         val data = Intent()
-         data.putExtra(EXTRA_NAMER, name)
-         data.putExtra(
-             EXTRA_TYPE,
-             type
-         )
-       //  data.putExtra(
-         //    EXTRA_TIMECOOKING,
-         //    time
-        // )
-       //  data.putExtra(
-        //     EXTRA_URL,
-         //    url
-       // )
-
-         data.putExtra(
-             EXTRA_INGREDIENTS,
-             ingredients
-         )
-         data.putExtra(
-             EXTRA_DESCRIBE,
-             describe)
-
-         val id = intent.getIntExtra(
-             EXTRA_ID,
-             -1
-         )
-         if (id != -1) {
-             data.putExtra(EXTRA_ID, id)
-         }
-
-         setResult(Activity.RESULT_OK, data)
+         val id = if (recipes != null) recipes?.id else null
+         val todo = recipe(id = id, nameR = editNameRec.text.toString(),
+             type = spinnerTypeRec.selectedItem.toString(),
+             timeCooking = editTimeRec.text.toString(),
+             url = FotoNewRec.toString(),
+             describe = editDescribeRec.text.toString(),
+             ingredients = editInRec.text.toString()
+             )
+         val intent = Intent()
+         intent.putExtra(Constants.INTENT_OBJECT, todo)
+         setResult(RESULT_OK, intent)
          finish()
-        }
-
-
-    }
+     }
+}
 
 
 

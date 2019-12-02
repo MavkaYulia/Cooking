@@ -1,20 +1,19 @@
 package com.example.cookingnew.ui.my_recipes
 
-import android.app.Activity
-import android.content.Intent
+
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.cookingnew.R
 import kotlinx.android.synthetic.main.fragment_my_recipes.*
 
-class MyRecipesFragment : Fragment() {
+class MyRecipesFragment : Fragment(){
+
 
     private lateinit var myRecipesViewModel: MyRecipesViewModel
 
@@ -29,7 +28,12 @@ class MyRecipesFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        myRecipesViewModel =
 
+            ViewModelProviders.of(this).get(MyRecipesViewModel::class.java)
+        myRecipesViewModel.getRecipesList().observe(this , Observer {
+            adapter.setAllRecipesItems(it)
+        })
         val root = inflater.inflate(R.layout.fragment_my_recipes, container, false)
       return root
     }
@@ -43,12 +47,7 @@ class MyRecipesFragment : Fragment() {
         val llm = LinearLayoutManager(this.context)
         RecipesList.layoutManager = llm
         RecipesList.adapter = adapter
-        myRecipesViewModel =
 
-            ViewModelProviders.of(this).get(MyRecipesViewModel::class.java)
-        myRecipesViewModel.getRecipesList().observe(this , Observer {
-            adapter.setAllRecipesItems(it)
-        })
 
 
 
@@ -56,11 +55,37 @@ class MyRecipesFragment : Fragment() {
        //     getData()}
 
     }
+   /* override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (resultCode == Activity.RESULT_OK) {
+            val RecipeRecord = data?.getParcelableExtra<recipe>(Constants.INTENT_OBJECT)!!
+            when (requestCode) {
+                Constants.INTENT_CREATE_TODO -> {
+                    myRecipesViewModel.saveRecipes(RecipeRecord)
+                }
+                Constants.INTENT_UPDATE_TODO -> {
+                    myRecipesViewModel.updateRecipes(RecipeRecord)
+                }
+            }
+        }*/
 
     fun filter(text: String) {
         adapter.setFilterText(text)
     }
 }
+//    override fun onDeleteClicked(Recipes1: recipe) {
+   //     myRecipesViewModel.deleteRecipes(Recipes1)
+   // }
+
+    //Callback when user clicks on view note
+   // override fun onViewClicked(Recipes1: recipe) {
+
+    //    val intent = Intent(context , AddNewRecipes::class.java)
+      //  intent.putExtra(Constants.INTENT_OBJECT, Recipes1)
+      //  startActivityForResult(intent, Constants.INTENT_UPDATE_TODO)
+  //  }
+
+
+
 /*
     private fun getData() {
         try {
