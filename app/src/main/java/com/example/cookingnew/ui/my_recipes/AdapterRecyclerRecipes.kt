@@ -10,19 +10,17 @@ import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import com.example.cookingnew.R
 import com.example.cookingnew.splash.CircleTransform
+import kotlinx.android.synthetic.main.items_recipes.view.*
 
 
-class AdapterRecyclerRecipes : RecyclerView.Adapter<AdapterRecyclerRecipes.ViewHolder>() {
+class AdapterRecyclerRecipes (todoRecipes: TodoRecipres): RecyclerView.Adapter<AdapterRecyclerRecipes.ViewHolder>() {
 
-    //interface RecipesEvents {
-    //    fun onDeleteClicked(Recipes1: recipe )
-    //    fun onViewClicked(Recipes1: recipe )
-   // }
+
 
     private var recipesList =  emptyList<recipe>()
     private var filterText: String = ""
     private var filteredList: List<recipe> = listOf()
-
+    private val listener: TodoRecipres = todoRecipes
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         val itemView = layoutInflater.inflate(R.layout.items_recipes, parent, false)
@@ -33,7 +31,7 @@ class AdapterRecyclerRecipes : RecyclerView.Adapter<AdapterRecyclerRecipes.ViewH
 
 //-------------------------->
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(filteredList[position])
+        holder.bind(filteredList[position],listener)
     }
 
 
@@ -60,6 +58,12 @@ class AdapterRecyclerRecipes : RecyclerView.Adapter<AdapterRecyclerRecipes.ViewH
         notifyDataSetChanged()
     }
 
+    interface TodoRecipres {
+        fun onDeleteClicked(Recipes: recipe)
+
+    }
+
+
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
 
@@ -72,16 +76,20 @@ class AdapterRecyclerRecipes : RecyclerView.Adapter<AdapterRecyclerRecipes.ViewH
 
 
 
-        fun bind(Recipes1: recipe ) {
+        fun bind(Recipes: recipe , listener : TodoRecipres ) {
 
-            textNameRec.text = Recipes1.nameR
-            textType.text = Recipes1.type
-            textDescribe.text = Recipes1.describe
-            textTime.text = Recipes1.timeCooking.toString()
-            textIngredients.text = Recipes1.ingredients
+            itemView.buttonDelete.setOnClickListener {
+                listener.onDeleteClicked(Recipes)
+            }
+
+            textNameRec.text = Recipes.nameR
+            textType.text = Recipes.type
+            textDescribe.text = Recipes.describe
+            textTime.text = Recipes.timeCooking.toString()
+            textIngredients.text = Recipes.ingredients
 
             Picasso.get()
-                .load(Recipes1.url)
+                .load(Recipes.url)
                 //.with(itemView.context)
                 .placeholder(R.drawable.food2)
                 .transform(CircleTransform())
@@ -91,4 +99,5 @@ class AdapterRecyclerRecipes : RecyclerView.Adapter<AdapterRecyclerRecipes.ViewH
         }
 
     }
+
 }

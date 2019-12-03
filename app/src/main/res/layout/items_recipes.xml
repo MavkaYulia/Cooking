@@ -19,6 +19,19 @@
             android:background="@color/colorAccentDark">
 
             <ImageView
+                android:id="@+id/buttonDelete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:src="@android:drawable/ic_menu_close_clear_cancel"
+                app:layout_constraintBottom_toTopOf="@+id/textDescribe"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <ImageView
                 android:id="@+id/imageRec"
                 android:layout_width="178dp"
                 android:layout_height="158dp"
@@ -30,15 +43,16 @@
 
             <TextView
                 android:id="@+id/textName"
-                android:layout_width="268dp"
-                android:layout_height="0dp"
+                android:layout_width="219dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="160dp"
+                android:layout_marginLeft="160dp"
                 android:text="Name"
                 android:textColor="@color/text"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.992"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/buttonDelete"
+                app:layout_constraintStart_toStartOf="@+id/imageRec"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
@@ -55,14 +69,14 @@
 
             <TextView
                 android:id="@+id/textTime"
-                android:layout_width="115dp"
-                android:layout_height="0dp"
+                android:layout_width="41dp"
+                android:layout_height="wrap_content"
                 android:text="Time"
                 android:textColor="@android:color/secondary_text_light"
-                android:textSize="14sp"
+                android:textSize="10sp"
                 android:textStyle="italic"
                 app:layout_constraintEnd_toEndOf="@+id/textIngredients"
-                app:layout_constraintHorizontal_bias="0.982"
+                app:layout_constraintHorizontal_bias="0.973"
                 app:layout_constraintStart_toStartOf="@+id/textIngredients"
                 app:layout_constraintTop_toBottomOf="@+id/textIngredients" />
 
@@ -117,15 +131,32 @@
 
             <TextView
                 android:id="@+id/textType"
-                android:layout_width="116dp"
-                android:layout_height="wrap_content"
+                android:layout_width="107dp"
+                android:layout_height="0dp"
                 android:text="Type"
                 android:textColor="@android:color/secondary_text_light"
+                android:textSize="12sp"
                 android:textStyle="italic"
                 app:layout_constraintEnd_toStartOf="@+id/textTime"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/textIngredients"
                 app:layout_constraintTop_toBottomOf="@+id/textIngredients" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="1dp"
+                android:layout_marginLeft="1dp"
+                android:layout_marginEnd="12dp"
+                android:layout_marginRight="12dp"
+                android:text="Час готування  :  "
+                android:textSize="10sp"
+                app:layout_constraintBottom_toBottomOf="@+id/textTime"
+                app:layout_constraintEnd_toStartOf="@+id/textTime"
+                app:layout_constraintHorizontal_bias="0.076"
+                app:layout_constraintStart_toEndOf="@+id/textType"
+                app:layout_constraintTop_toBottomOf="@+id/textIngredients"
+                app:layout_constraintVertical_bias="1.0" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>

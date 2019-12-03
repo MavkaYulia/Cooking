@@ -15,7 +15,7 @@ class MyRecipesViewModel (application: Application): AndroidViewModel(applicatio
         repository.saveRecipes(Recipe = Recipe)
     }
 
-    fun updateRecipes(Recipe : recipe) {
+   fun updateRecipes(Recipe : recipe) {
         repository.updateRecipes(Recipe = Recipe)
     }
 

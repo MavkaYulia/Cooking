@@ -19,6 +19,7 @@ import android.widget.ImageView
 import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import com.example.cookingnew.AddNewRecipes.SQLRecipe.RecipesRepository
 import com.example.cookingnew.AddNewRecipes.camera.Picker
 import com.example.cookingnew.AddNewRecipes.camera.Sources
 
@@ -54,8 +55,6 @@ class AddNewRecipes : AppCompatActivity() {
 
     private fun pickImageFromSource(source: Sources) {
         Picker.with(supportFragmentManager).requestImage(source, getString(R.string.label_pick_image))
-            //else -> Observable.just(uri)
-
             .subscribe({
                 onImagePicked(it)
             }, {
@@ -123,9 +122,7 @@ class AddNewRecipes : AppCompatActivity() {
              describe = editDescribeRec.text.toString(),
              ingredients = editInRec.text.toString()
              )
-         val intent = Intent()
-         intent.putExtra(Constants.INTENT_OBJECT, todo)
-         setResult(RESULT_OK, intent)
+         RecipesRepository(application).saveRecipes(todo)
          finish()
      }
 }

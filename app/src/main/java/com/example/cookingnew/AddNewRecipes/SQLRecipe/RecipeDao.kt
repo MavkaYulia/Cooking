@@ -19,13 +19,4 @@ interface RecipeDao {
     @Query("SELECT * FROM Recipes ORDER BY id DESC")
     fun getRecipesList(): LiveData<List<recipe>>
 
-
-   // @Query("SELECT * from Recipes")
-   // fun getAll(): List<recipe>
-
-   // @Insert(onConflict = REPLACE)
-   // fun insert (Recipe: recipe )
-
-   // @Query("DELETE from Recipes")
-   // fun deleteAll()
 }

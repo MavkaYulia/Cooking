@@ -10,10 +10,11 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.cookingnew.R
+import kotlinx.android.synthetic.main.activity_add_new_recipes.*
 import kotlinx.android.synthetic.main.fragment_my_recipes.*
+import kotlinx.android.synthetic.main.items_recipes.*
 
-class MyRecipesFragment : Fragment(){
-
+class MyRecipesFragment : Fragment() , AdapterRecyclerRecipes.TodoRecipres{
 
     private lateinit var myRecipesViewModel: MyRecipesViewModel
 
@@ -32,7 +33,6 @@ class MyRecipesFragment : Fragment(){
 
             ViewModelProviders.of(this).get(MyRecipesViewModel::class.java)
         myRecipesViewModel.getRecipesList().observe(this , Observer {v1 ->
-            // Update the cached copy of the words in the adapter.
             v1?.let { adapter.setRecipes(it) }
         })
         val root = inflater.inflate(R.layout.fragment_my_recipes, container, false)
@@ -42,10 +42,10 @@ class MyRecipesFragment : Fragment(){
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         setHasOptionsMenu(true)
-
-
-        adapter = AdapterRecyclerRecipes()
+      //  buttonDelete.setOnClickListener { v -> onDeleteClicked(Recipes) }
         val llm = LinearLayoutManager(this.context)
+        adapter = AdapterRecyclerRecipes(this)
+
         RecipesList.layoutManager = llm
         RecipesList.adapter = adapter
 
@@ -56,37 +56,14 @@ class MyRecipesFragment : Fragment(){
        //     getData()}
 
     }
-   /* override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (resultCode == Activity.RESULT_OK) {
-            val RecipeRecord = data?.getParcelableExtra<recipe>(Constants.INTENT_OBJECT)!!
-            when (requestCode) {
-                Constants.INTENT_CREATE_TODO -> {
-                    myRecipesViewModel.saveRecipes(RecipeRecord)
-                }
-                Constants.INTENT_UPDATE_TODO -> {
-                    myRecipesViewModel.updateRecipes(RecipeRecord)
-                }
-            }
-        }*/
+   override fun onDeleteClicked(Recipes : recipe) {
+        myRecipesViewModel.deleteRecipes(Recipes)
+    }
 
     fun filter(text: String) {
         adapter.setFilterText(text)
     }
 }
-//    override fun onDeleteClicked(Recipes1: recipe) {
-   //     myRecipesViewModel.deleteRecipes(Recipes1)
-   // }
-
-    //Callback when user clicks on view note
-   // override fun onViewClicked(Recipes1: recipe) {
-
-    //    val intent = Intent(context , AddNewRecipes::class.java)
-      //  intent.putExtra(Constants.INTENT_OBJECT, Recipes1)
-      //  startActivityForResult(intent, Constants.INTENT_UPDATE_TODO)
-  //  }
-
-
-
 /*
     private fun getData() {
         try {
