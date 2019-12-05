@@ -1,5 +1,6 @@
 package com.example.cookingnew.ui.my_recipes
 
+import android.net.Uri
 import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
@@ -18,6 +19,7 @@ data class recipe(@PrimaryKey(autoGenerate = true) val id: Long?,
                   @ColumnInfo(name = "ingredients") var ingredients: String
                    ): Parcelable
 {
+
     fun getName(): String {
         return nameR
      }

@@ -15,6 +15,7 @@ import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_add_new_recipes.*
 
 import android.graphics.Bitmap
+import android.provider.MediaStore
 import android.widget.ImageView
 import android.widget.Toast
 import com.bumptech.glide.Glide
@@ -27,7 +28,7 @@ class AddNewRecipes : AppCompatActivity() {
 
     private lateinit var ivFotoNewRecImage: ImageView
 
-
+    lateinit var result1:Any
     var recipes: recipe? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -67,6 +68,7 @@ class AddNewRecipes : AppCompatActivity() {
         if (result is Bitmap) {
             ivFotoNewRecImage.setImageBitmap(result)
         } else {
+            result1 = result
             Glide.with(this)
                 .load(result)
                 .transition(DrawableTransitionOptions().crossFade())
@@ -107,6 +109,7 @@ class AddNewRecipes : AppCompatActivity() {
     }
 
      fun saveRecipes () {
+
          val name: String = editNameRec.text.toString()
          val ingredients: String = editInRec.text.toString()
          if (name.trim { it <= ' ' }.isEmpty() || ingredients.trim { it <= ' ' }.isEmpty()) {
@@ -118,7 +121,7 @@ class AddNewRecipes : AppCompatActivity() {
          val todo = recipe(id = id, nameR = editNameRec.text.toString(),
              type = spinnerTypeRec.selectedItem.toString(),
              timeCooking = editTimeRec.text.toString(),
-             url = FotoNewRec.toString(),
+             url = result1.toString(),
              describe = editDescribeRec.text.toString(),
              ingredients = editInRec.text.toString()
              )

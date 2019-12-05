@@ -95,9 +95,8 @@ class AdapterRecyclerRecipes (todoRecipes: TodoRecipres): RecyclerView.Adapter<A
                 .transform(CircleTransform())
                 .error(R.drawable.no_image)
                 .into(myImageView)
+            }
 
         }
 
     }
-
-}
